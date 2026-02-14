@@ -1,0 +1,64 @@
+{
+	"name": "vscode-yamllint-js",
+	"displayName": "yamllint-js",
+	"description": "VSCode extension for yamllint-js",
+	"version": "0.0.0",
+	"license": "GPL-3.0-or-later",
+	"main": "./out/extension.js",
+	"publisher": "kimzuni",
+	"author": {
+		"name": "kimzuni",
+		"email": "me@zuni.kim",
+		"url": "https://github.com/kimzuni"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kimzuni-labs/vscode-yamllint-js.git"
+	},
+	"homepage": "https://github.com/kimzuni-labs/vscode-yamllint-js",
+	"bugs": {
+		"url": "https://github.com/kimzuni-labs/vscode-yamllint-js/issues"
+	},
+	"categories": [
+		"Linters"
+	],
+	"keywords": [
+		"lint",
+		"yaml",
+		"linter",
+		"yamllint"
+	],
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src",
+		"test": "vscode-test"
+	},
+	"activationEvents": [],
+	"contributes": {
+		"commands": [
+			{
+				"command": "vscode-yamllint-js.helloWorld",
+				"title": "Hello World"
+			}
+		]
+	},
+	"dependencies": {
+		"yamllint-js": "^0.2.1"
+	},
+	"devDependencies": {
+		"@types/mocha": "^10.0.10",
+		"@types/node": "22.x",
+		"@types/vscode": "^1.90.0",
+		"@vscode/test-cli": "^0.0.12",
+		"@vscode/test-electron": "^2.5.2",
+		"eslint": "^9.39.2",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.54.0"
+	},
+	"engines": {
+		"vscode": "^1.90.0"
+	}
+}
