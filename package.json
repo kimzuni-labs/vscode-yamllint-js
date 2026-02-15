@@ -36,14 +36,11 @@
 		"lint": "eslint src",
 		"test": "vscode-test"
 	},
-	"activationEvents": [],
+	"activationEvents": [
+		"onLanguage:yaml"
+	],
 	"contributes": {
-		"commands": [
-			{
-				"command": "vscode-yamllint-js.helloWorld",
-				"title": "Hello World"
-			}
-		]
+		"commands": []
 	},
 	"dependencies": {
 		"yamllint-js": "^0.2.1"
