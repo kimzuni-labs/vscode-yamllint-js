@@ -1,0 +1,33 @@
+---
+name: 🐛 Bug Report
+description: Report an issue that should be fixed
+labels:
+  - bug
+  - needs triage
+body:
+  - id: intro
+    type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+        Make sure you are running the latest version.
+        The bug you are experiencing may already have been fixed.
+
+        Please try to include as much information as possible.
+  - id: what-extension-version
+    type: input
+    attributes:
+      label: What version of extension are you using?
+      placeholder: 0.0.0
+  - id: what-steps
+    type: textarea
+    attributes:
+      label: What steps can reproduce the bug?
+    validations:
+      required: true
+  - id: additional-information
+    type: textarea
+    attributes:
+      label: Additional information
+      description: Is there anything else you think we should know?
