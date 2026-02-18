@@ -5,6 +5,18 @@ VSCode extension for
 
 
 
+## Installation
+
+[Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=kimzuni.vscode-yamllint-js)
+
+
+
+## Features
+
+![vscode-yamllint-js demo GIF](media/linting.gif)
+
+
+
 ## License
 
 [GPL version 3](LICENSE)
