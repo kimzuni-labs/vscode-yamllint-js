@@ -35,7 +35,8 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
 		"lint": "eslint src",
-		"test": "vscode-test"
+		"test": "vscode-test",
+		"deploy": "vsce publish"
 	},
 	"activationEvents": [
 		"onLanguage:yaml"
@@ -52,6 +53,7 @@
 		"@types/vscode": "^1.90.0",
 		"@vscode/test-cli": "^0.0.12",
 		"@vscode/test-electron": "^2.5.2",
+		"@vscode/vsce": "^3.7.1",
 		"eslint": "^9.39.2",
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.54.0"
