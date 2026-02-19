@@ -26,6 +26,14 @@ body:
       label: What steps can reproduce the bug?
     validations:
       required: true
+  - id: what-expected
+    type: textarea
+    attributes:
+      label: What is the expected behavior?
+  - id: what-instead
+    type: textarea
+    attributes:
+      label: What do you see instead?
   - id: additional-information
     type: textarea
     attributes:
