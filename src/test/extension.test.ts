@@ -1,6 +1,7 @@
+import { suite, test } from "mocha";
 import * as assert from "assert/strict";
+import * as path from "node:path";
 import * as vscode from "vscode";
-import * as path from "path";
 
 import { filesDir, waitForDiagnostics } from "./common";
 
@@ -14,10 +15,8 @@ suite("Extension Test Suite", () => {
 
 		// Start waiting before opening to catch fast updates
 		const diagnosticPromise = waitForDiagnostics(uri);
-
 		const document = await vscode.workspace.openTextDocument(uri);
 		await vscode.window.showTextDocument(document);
-
 		await diagnosticPromise;
 
 		const diagnostics = vscode.languages.getDiagnostics(uri);
