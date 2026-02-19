@@ -19,6 +19,10 @@ import * as vscode from "vscode";
 
 
 
+function getWorkspaceFolder(document: vscode.TextDocument) {
+	return vscode.workspace.getWorkspaceFolder(document.uri)?.uri.fsPath;
+}
+
 export async function lintDocument(document: vscode.TextDocument): Promise<vscode.Diagnostic[]> {
 	const diagnostics: vscode.Diagnostic[] = [];
 
@@ -27,7 +31,9 @@ export async function lintDocument(document: vscode.TextDocument): Promise<vscod
 		const text = document.getText();
 		const fileName = document.fileName;
 
-		const config = await loadYamlLintConfig();
+		const config = await loadYamlLintConfig({
+			startDir: getWorkspaceFolder(document),
+		});
 		const problems = linter(text, config, fileName);
 
 		for await (const problem of problems) {

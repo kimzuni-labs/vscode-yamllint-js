@@ -46,7 +46,7 @@
 		"commands": []
 	},
 	"dependencies": {
-		"yamllint-js": "^0.2.1"
+		"yamllint-js": "^0.2.3"
 	},
 	"devDependencies": {
 		"@types/mocha": "^10.0.10",

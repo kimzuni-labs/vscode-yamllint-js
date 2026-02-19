@@ -13,7 +13,14 @@ VSCode extension for
 
 ## Features
 
+### Linting
+
 ![vscode-yamllint-js demo GIF](media/linting.gif)
+
+### Configuration
+
+See
+[yamllint-js](https://github.com/kimzuni-labs/yamllint-js#configuration).
 
 
 
