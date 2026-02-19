@@ -2,30 +2,12 @@ import * as assert from "assert/strict";
 import * as vscode from "vscode";
 import * as path from "path";
 
-
-
-function waitForDiagnostics(uri: vscode.Uri, timeout = 5000): Promise<vscode.Diagnostic[]> {
-	return new Promise(resolve => {
-		const disposable = vscode.languages.onDidChangeDiagnostics(e => {
-			if (e.uris.some(u => u.toString() === uri.toString())) {
-				disposable.dispose();
-				resolve(vscode.languages.getDiagnostics(uri));
-			}
-		});
-
-		setTimeout(() => {
-			disposable.dispose();
-			resolve(vscode.languages.getDiagnostics(uri));
-		}, timeout);
-	});
-}
+import { filesDir, waitForDiagnostics } from "./common";
 
 
 
 suite("Extension Test Suite", () => {
 	vscode.window.showInformationMessage("Start all tests.");
-
-	const filesDir = path.resolve("src", "test", "files");
 
 	test("should have no errors for good.yaml", async () => {
 		const uri = vscode.Uri.file(path.join(filesDir, "good.yaml"));
