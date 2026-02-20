@@ -21,12 +21,20 @@ import { lintDocument } from "./linter";
 
 
 
+const schemes = [
+	"file",
+	"untitled",
+	"vscode-vfs",
+];
+
+
+
 export function activate(context: vscode.ExtensionContext) {
 	const collection = vscode.languages.createDiagnosticCollection("yamllint-js");
 
 	const updateDiagnostics = async (document?: vscode.TextDocument) => {
 		if (document) {
-			if (document.uri.scheme === "file" && document.languageId === "yaml") {
+			if (schemes.includes(document.uri.scheme) && document.languageId === "yaml") {
 				const diagnostics = await lintDocument(document);
 				collection.set(document.uri, diagnostics);
 			} else {
