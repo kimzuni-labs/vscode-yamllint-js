@@ -26,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const updateDiagnostics = async (document?: vscode.TextDocument) => {
 		if (document) {
-			if (document.languageId === "yaml") {
+			if (document.uri.scheme === "file" && document.languageId === "yaml") {
 				const diagnostics = await lintDocument(document);
 				collection.set(document.uri, diagnostics);
 			} else {
