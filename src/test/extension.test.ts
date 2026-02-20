@@ -3,7 +3,7 @@ import * as assert from "assert/strict";
 import * as path from "node:path";
 import * as vscode from "vscode";
 
-import { filesDir, waitForDiagnostics } from "./common";
+import { filesDir, lintingOnNewWindow } from "./common";
 
 
 
@@ -13,28 +13,14 @@ suite("Extension Test Suite", () => {
 	test("should have no errors for good.yaml", async () => {
 		const uri = vscode.Uri.file(path.join(filesDir, "good.yaml"));
 
-		// Start waiting before opening to catch fast updates
-		const diagnosticPromise = waitForDiagnostics(uri);
-		const document = await vscode.workspace.openTextDocument(uri);
-		await vscode.window.showTextDocument(document);
-		await diagnosticPromise;
-
-		const diagnostics = vscode.languages.getDiagnostics(uri);
+		const diagnostics = await lintingOnNewWindow(uri);
 		assert.equal(diagnostics.length, 0, "Should have no diagnostics for valid YAML");
 	});
 
 	test("should have errors for bad.yaml", async () => {
 		const uri = vscode.Uri.file(path.join(filesDir, "bad.yaml"));
 
-		// Start waiting before opening to catch fast updates
-		const diagnosticPromise = waitForDiagnostics(uri);
-
-		const document = await vscode.workspace.openTextDocument(uri);
-		await vscode.window.showTextDocument(document);
-
-		await diagnosticPromise;
-
-		const diagnostics = vscode.languages.getDiagnostics(uri);
+		const diagnostics = await lintingOnNewWindow(uri);
 		assert.notEqual(diagnostics.length, 0, "Should have diagnostics for invalid YAML");
 
 		const errorDiagnostic = diagnostics.find(d => d.severity === vscode.DiagnosticSeverity.Error);

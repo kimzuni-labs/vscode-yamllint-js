@@ -4,7 +4,7 @@ import * as path from "node:path";
 import * as fs from "node:fs";
 import * as vscode from "vscode";
 
-import { filesDir, waitForDiagnostics } from "./common";
+import { filesDir, lintingOnNewWindow } from "./common";
 
 
 
@@ -26,32 +26,19 @@ suite("Config Test Suite", () => {
 
 	test("should respect yamllint configuration", async () => {
 		const uri = vscode.Uri.file(yamlFile);
-		let diagnosticPromise, document, diagnostics;
+		const run = async (config?: string) => {
+			if (config) {
+				await fs.promises.writeFile(configFile, config);
+				await vscode.commands.executeCommand("workbench.action.closeActiveEditor");
+			}
+			const diagnostics = await lintingOnNewWindow(uri);
+			return diagnostics.find(d => d.code === "document-start");
+		};
 
-		diagnosticPromise = waitForDiagnostics(uri);
-		document = await vscode.workspace.openTextDocument(uri);
-		await vscode.window.showTextDocument(document);
-		await diagnosticPromise;
-
-		diagnostics = vscode.languages.getDiagnostics(uri);
-
-		const docStartWarning = diagnostics.find(d => d.code === "document-start");
+		const docStartWarning = await run();
 		assert.ok(docStartWarning);
 
-
-
-		const configContent = "extends: relaxed";
-		await fs.promises.writeFile(configFile, configContent);
-		await vscode.commands.executeCommand("workbench.action.closeActiveEditor");
-
-		diagnosticPromise = waitForDiagnostics(uri);
-		document = await vscode.workspace.openTextDocument(uri);
-		await vscode.window.showTextDocument(document);
-		await diagnosticPromise;
-
-		diagnostics = vscode.languages.getDiagnostics(uri);
-
-		const docStartWarningGivenConfig = diagnostics.find(d => d.code === "document-start");
+		const docStartWarningGivenConfig = await run("extends: relaxed");
 		assert.ok(!docStartWarningGivenConfig);
 	});
 });
