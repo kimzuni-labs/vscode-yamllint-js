@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 
 
 
-export const filesDir = path.resolve("src", "test", "files");
+export const filesDir = path.resolve(__dirname, "..", "..", "src", "test", "files");
 
 
 

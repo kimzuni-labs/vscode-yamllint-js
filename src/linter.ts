@@ -17,23 +17,23 @@
 
 import * as vscode from "vscode";
 
+import { getWorkspaceUri, importYamllintJs } from "./utils";
 
 
-function getWorkspaceFolder(document: vscode.TextDocument) {
-	return vscode.workspace.getWorkspaceFolder(document.uri)?.uri.fsPath;
-}
 
-export async function lintDocument(document: vscode.TextDocument): Promise<vscode.Diagnostic[]> {
+export async function lintDocument(document: vscode.TextDocument) {
 	const diagnostics: vscode.Diagnostic[] = [];
 
 	try {
-		const { loadYamlLintConfig, linter } = await import("yamllint-js/internal");
 		const text = document.getText();
 		const fileName = document.fileName;
 
+		const loadYamlLintConfig = await importYamllintJs("loadYamlLintConfig");
 		const config = await loadYamlLintConfig({
-			startDir: getWorkspaceFolder(document),
+			startDir: getWorkspaceUri(document.uri).fsPath,
 		});
+
+		const linter = await importYamllintJs("linter");
 		const problems = linter(text, config, fileName);
 
 		for await (const problem of problems) {

@@ -12,8 +12,6 @@ suite("Config Test Suite", () => {
 	const yamlFile = path.join(filesDir, "no-doc-start.yaml");
 	const configFile = path.resolve(".yamllint");
 
-
-
 	const cleanup = async () => {
 		try {
 			await fs.promises.unlink(configFile);
