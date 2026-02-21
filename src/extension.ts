@@ -54,6 +54,8 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.window.onDidChangeActiveTextEditor(e => updateDiagnostics(e?.document)),
 		vscode.workspace.onDidChangeTextDocument(e => updateDiagnostics(e.document)),
+		vscode.workspace.onDidOpenTextDocument(updateDiagnostics),
+		vscode.workspace.onDidSaveTextDocument(updateDiagnostics),
 		vscode.workspace.onDidCloseTextDocument(deleteDiagnostics),
 	);
 
