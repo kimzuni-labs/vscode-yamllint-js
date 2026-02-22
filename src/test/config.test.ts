@@ -10,7 +10,7 @@ import { filesDir, lintingOnNewWindow } from "./common";
 
 suite("Config Test Suite", () => {
 	const yamlFile = path.join(filesDir, "no-doc-start.yaml");
-	const configFile = path.resolve(".yamllint");
+	const configFile = path.join(filesDir, ".yamllint");
 
 	const cleanup = async () => {
 		try {
